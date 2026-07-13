@@ -1,0 +1,12 @@
+{
+  "name": "vintage-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Backend email service for the Vintage Finance Complaints & Grievance Redressal form",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.15"
+  }
+}
