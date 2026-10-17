@@ -22,6 +22,21 @@ Content-Type: application/json
 
 Response: `{ "success": true, "message": "..." }`
 
+```
+POST /api/send-lead
+Content-Type: application/json
+
+{
+  "form": "Loan enquiry",
+  "page": "/personal-loan-in-delhi.html",
+  "fields": [["Full name", "..."], ["Mobile number", "9999999999"], ["Email address", "optional"]]
+}
+```
+
+Emails a loan enquiry, callback request or application from the city landing
+pages. `fields` is a list of `[label, value]` pairs shown in the email; a valid
+`Mobile number` is required. Same response format as above.
+
 ## 1. Install
 
 ```bash
@@ -41,7 +56,9 @@ Copy `.env.example` to `.env` and fill in the values:
 | `SMTP_PASS` | SMTP password / app password |
 | `MAIL_FROM` | (optional) From address; defaults to `SMTP_USER` |
 | `MAIL_TO` | Where complaints are delivered (e.g. `support@vintagefinance.in`) |
+| `LEADS_MAIL_TO` | (optional) Where loan enquiries from `/api/send-lead` are delivered; defaults to `MAIL_TO` |
 | `ALLOWED_ORIGIN` | Your website origin for CORS (e.g. `https://www.vintagefinance.in`). `*` for testing only. |
+| `ALLOWED_ORIGINS` | (optional, `/api/send-lead` only) Comma-separated origins, e.g. the live site plus a Firebase staging URL; defaults to `ALLOWED_ORIGIN` |
 
 ### Gmail note
 If you use a Gmail account, enable 2-Step Verification and create an
