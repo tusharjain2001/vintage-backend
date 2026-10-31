@@ -14,6 +14,7 @@ const nodemailer = require("nodemailer");
  *
  * Uses the same SMTP variables as send-complaint.js, plus:
  *   LEADS_MAIL_TO    (optional) where leads are delivered; defaults to MAIL_TO
+ *   LEADS_MAIL_CC    (optional) CC for leads; defaults to MAIL_CC
  *   ALLOWED_ORIGINS  (optional) comma-separated website origins for CORS, e.g.
  *                    "https://www.vintagefinance.in,https://vintage-fin--staging-xxxx.web.app";
  *                    falls back to ALLOWED_ORIGIN, then "*"
@@ -89,6 +90,7 @@ module.exports = async (req, res) => {
     const name = valueOf("Full name");
 
     const mailTo = process.env.LEADS_MAIL_TO || process.env.MAIL_TO;
+    const mailCc = process.env.LEADS_MAIL_CC || process.env.MAIL_CC;
     if (!mailTo) {
       console.error("LEADS_MAIL_TO / MAIL_TO env variable is not set");
       return res
@@ -138,6 +140,7 @@ module.exports = async (req, res) => {
     await transporter.sendMail({
       from: process.env.MAIL_FROM || process.env.SMTP_USER,
       to: mailTo,
+      ...(mailCc ? { cc: mailCc } : {}),
       ...(email ? { replyTo: email } : {}),
       subject: `New ${form}: ${name || mobile}${page ? ` — ${page}` : ""}`,
       html,

@@ -55,8 +55,10 @@ Copy `.env.example` to `.env` and fill in the values:
 | `SMTP_USER` | Sending mailbox / SMTP username |
 | `SMTP_PASS` | SMTP password / app password |
 | `MAIL_FROM` | (optional) From address; defaults to `SMTP_USER` |
-| `MAIL_TO` | Where complaints are delivered (e.g. `support@vintagefinance.in`) |
+| `MAIL_TO` | Where complaints are delivered (e.g. `support@vintagefinance.in`). Several addresses: comma-separated |
+| `MAIL_CC` | (optional) CC for complaints, comma-separated |
 | `LEADS_MAIL_TO` | (optional) Where loan enquiries from `/api/send-lead` are delivered; defaults to `MAIL_TO` |
+| `LEADS_MAIL_CC` | (optional) CC for loan enquiries; defaults to `MAIL_CC` |
 | `ALLOWED_ORIGIN` | Your website origin for CORS (e.g. `https://www.vintagefinance.in`). `*` for testing only. |
 | `ALLOWED_ORIGINS` | (optional, `/api/send-lead` only) Comma-separated origins, e.g. the live site plus a Firebase staging URL; defaults to `ALLOWED_ORIGIN` |
 

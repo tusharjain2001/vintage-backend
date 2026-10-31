@@ -10,6 +10,7 @@ const nodemailer = require("nodemailer");
  *   SMTP_USER       the sending mailbox / SMTP username
  *   SMTP_PASS       the SMTP password / app password
  *   MAIL_TO         where complaints are delivered (e.g. grievance@vintagefinance.in)
+ *   MAIL_CC         (optional) CC for complaints
  *   MAIL_FROM       (optional) from address; defaults to SMTP_USER
  *   ALLOWED_ORIGIN  (optional) your website origin for CORS; defaults to "*"
  */
@@ -121,6 +122,7 @@ module.exports = async (req, res) => {
     await transporter.sendMail({
       from: process.env.MAIL_FROM || process.env.SMTP_USER,
       to: mailTo,
+      ...(process.env.MAIL_CC ? { cc: process.env.MAIL_CC } : {}),
       replyTo: email,
       subject: `New Complaint: ${category} — ${fullName}`,
       html,
